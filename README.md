@@ -1,0 +1,2 @@
+# localstack-playground
+LocalStack playground
