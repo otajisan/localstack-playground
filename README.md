@@ -73,6 +73,9 @@ server: hypercorn-h11
 
 - then, you can see result file in S3 and minio
 
+![image](https://github.com/otajisan/localstack-playground/assets/5608492/b5f2aba4-2843-4d39-af72-c4e65d1515a3)
+
+
 # References
 
 - https://zenn.dev/s_ryuuki/articles/8cf4855713c092
