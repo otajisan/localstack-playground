@@ -1,0 +1,34 @@
+version: "3.8"
+networks:
+  container-link:
+    name: localstack-playground.internal
+services:
+  localstack:
+    container_name: 'localstack-playground'
+    image: localstack/localstack
+    ports:
+      - '14566:4566'
+      - '14571:4571'
+      ## configurations for Pro
+      #- "127.0.0.1:53:53"
+      #- "127.0.0.1:53:53/udp"
+      #- "127.0.0.1:443:443"
+      #- "127.0.0.1:4510-4530:4510-4530"
+      ## general configurations
+      #- "127.0.0.1:4566:4566"
+      #- "127.0.0.1:4571:4571"
+    environment:
+      - SERVICES=apigateway,lambda,s3
+      - DEBUG=${DEBUG- }
+      - DATA_DIR=${DATA_DIR- }
+      - LAMBDA_EXECUTOR=docker-reuse
+      - LAMBDA_REMOTE_DOCKER=0
+      - LOCALSTACK_API_KEY=${LOCALSTACK_API_KEY- }
+      - HOST_TMP_FOLDER=${TMPDIR:-/tmp/}localstack
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "${LOCALSTACK_VOLUME_DIR:-./localstack-volume}:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./docker/localstack/:/docker-entrypoint-initaws.d"
+    networks:
+      - container-link
