@@ -1,7 +1,9 @@
 version: "3.8"
+
 networks:
   container-link:
     name: localstack-playground.internal
+
 services:
   localstack:
     container_name: 'localstack-playground'
@@ -30,5 +32,23 @@ services:
       - "${LOCALSTACK_VOLUME_DIR:-./localstack-volume}:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "./docker/localstack/:/docker-entrypoint-initaws.d"
+    networks:
+      - container-link
+
+  minio:
+    image: minio/minio:latest
+    ports:
+      - '19000:9000'
+      - '19001:9001'
+    entrypoint: sh
+    command: >
+      -c "mkdir -p /data/my-minio-bucket &&
+      mkdir -p /data/.minio.sys/buckets/my-minio-bucket && 
+      cp /policy.json /data/.minio.sys/buckets/my-minio-bucket/policy.json && 
+      minio server /data --console-address ':9001'
+      "
+    volumes:
+      - './minio-data:/data'
+      - ./policy.json:/policy.json
     networks:
       - container-link

@@ -163,3 +163,4 @@ cython_debug/
 .idea/
 
 localstack-volume/
+minio-data/

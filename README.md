@@ -2,7 +2,27 @@
 
 LocalStack playground
 
+# Architecture
+
+```mermaid
+stateDiagram-v2
+    [*] --> APIGateway
+    APIGateway --> Lambda
+    Lambda --> S3
+    Lambda --> Minio
+```
+
 # Usage
+
+- start localstack and minio
+
+```bash
+docker compose up -d
+```
+
+- minio
+    - http://localhost:19001/login
+    - `minioadmin` / `minioadmin`
 
 - create localstack profile if needed
 
@@ -15,6 +35,7 @@ LocalStack playground
 ```bash
 cd lambda
 pipenv install
+pipenv install --dev
 pipenv shell
 
 cd greeting
@@ -30,6 +51,8 @@ cd greeting
 # deploy api gateway and integration
 ./deploy-apigateway.sh
 ```
+
+- invoke API Gateway
 
 ```bash
 # example request/response
@@ -47,6 +70,8 @@ server: hypercorn-h11
 
 {"message": "Hello otajisan!", "parameters": {"name": "otajisan"}}
 ```
+
+- then, you can see result file in S3 and minio
 
 # References
 
