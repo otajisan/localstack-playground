@@ -4,6 +4,12 @@ LocalStack playground
 
 # Usage
 
+- create localstack profile if needed
+
+```bash
+./configure-localstack-profile.sh
+```
+
 - build Lambda function
 
 ```bash
