@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "greeting"
+version = "0.1.0"
+description = "Greeting message lambda function"
+authors = ["otaijsan <mtaji@morningcode.io>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.31.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest-mock = "^3.11.1"
+pytest-cov = "^4.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
